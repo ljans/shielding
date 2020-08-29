@@ -5,8 +5,8 @@ require 'core/mysql.php';
 require 'core/firewall.php';
 require 'core/shielding.php';
 require 'core/wrapper.php';
-require 'source/mailenable.php';
-require 'source/winevent.php';
+require 'adapter/mailenable.php';
+require 'adapter/winevent.php';
 
 // Setup environment
 if(PHP_SAPI != 'cli') exit;
