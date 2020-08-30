@@ -16,8 +16,8 @@
 	}
 	
 	// Update RemoteIP parameter
-	public function updateRule(array $ip) {
-		return $this->exec('set rule name="'.$this->name.'" new RemoteIP="'.join(',', $ip).'"');
+	public function updateRule(array $list) {
+		return $this->exec('set rule name="'.$this->name.'" new RemoteIP="'.join(',', $list).'"');
 	}
 	
 	// Enable/disable rule

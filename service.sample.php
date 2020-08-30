@@ -4,7 +4,7 @@
 require 'core/mysql.php';
 require 'core/firewall.php';
 require 'core/shielding.php';
-require 'core/wrapper.php';
+require 'core/service.php';
 require 'adapter/mailenable.php';
 require 'adapter/winevent.php';
 
@@ -34,8 +34,8 @@ $shielding = new Shielding(
 // Set a badness threshold
 $shielding->threshold = 6;
 
-// Setup wrapper
-$wrapper = new Wrapper([
+// Setup service
+$service = new Service([
 	'service' => '<name>',
 	'display' => '<displayname>',
 	'description' => utf8_decode('<description>'),
@@ -52,19 +52,19 @@ switch($argv[1] ?? NULL) {
 	
 	// Install service and shielding
 	case 'install': {
-		$wrapper->toggleServiceInstallation(true);
+		$service->install(true);
 		$shielding->install();
 	} break;
 	
 	// Uninstall service and shielding
 	case 'uninstall': {
-		$wrapper->toggleServiceInstallation(false);
+		$service->install(false);
 		$shielding->uninstall();
 	} break;
 	
 	// Start service
 	case 'start': {
-		$wrapper->startService();
+		$service->start();
 	} break;
 	
 	// Invalid argument

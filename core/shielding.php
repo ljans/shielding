@@ -88,7 +88,7 @@
 			
 			// Enable the rule only if IPs are given or any IP will be blocked
 			$this->firewall->toggleRule(false); // disable
-			$this->firewall->updateRule($list); // updateRule
+			$this->firewall->updateRule($list); // update
 			$this->firewall->toggleRule(count($list) > 0); // (maybe) enable
 		}
 	}

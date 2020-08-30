@@ -1,4 +1,11 @@
-<?php class Wrapper {
+<?php
+/*!
+ * Wrapper for win32service v1.0
+ * Licensed under the MIT license
+ * Copyright (c) 2020 Lukas Jans
+ * https://github.com/luniverse/service.php
+ */
+class Service {
 	
 	// Service status messages
 	private $message = [
@@ -70,14 +77,14 @@
 	}
 	
 	// Install/uninstall service
-	public function toggleServiceInstallation($install) {
-		$code = $install ? win32_create_service($this->service) : win32_delete_service($this->service['service']);
+	public function install($mode=true) {
+		$code = $mode ? win32_create_service($this->service) : win32_delete_service($this->service['service']);
 		if($code !== WIN32_NO_ERROR) throw new Exception('0x'.dechex($code));
-		print 'Service successfully '.($install ? 'created' : 'deleted').".\r\n";
+		print 'Service successfully '.($mode ? 'created' : 'deleted').".\r\n";
 	}
 	
 	// Start service
-	public function startService() {
+	public function start() {
 		
 		// Check log directory
 		if(!is_dir($this->config['logpath'])) mkdir($this->config['logpath']);
