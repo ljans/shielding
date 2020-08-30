@@ -4,7 +4,7 @@
 require 'core/mysql.php';
 require 'core/firewall.php';
 require 'core/shielding.php';
-require 'core/service.php';
+require 'core/win32service.php';
 require 'adapter/mailenable.php';
 require 'adapter/winevent.php';
 
@@ -35,7 +35,7 @@ $shielding = new Shielding(
 $shielding->threshold = 6;
 
 // Setup service
-$service = new Service([
+$service = new Win32service([
 	'service' => '<name>',
 	'display' => '<displayname>',
 	'description' => utf8_decode('<description>'),

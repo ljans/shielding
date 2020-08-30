@@ -3,9 +3,9 @@
  * Wrapper for win32service v1.0
  * Licensed under the MIT license
  * Copyright (c) 2020 Lukas Jans
- * https://github.com/luniverse/service.php
+ * https://github.com/luniverse/win32service
  */
-class Service {
+class Win32service {
 	
 	// Service status messages
 	private $message = [
