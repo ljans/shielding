@@ -1,9 +1,4 @@
-<?php
-/*!
- * MySQL extension for PDO (v1.0)
- * https://gist.github.com/ljans
- */
-class MySQL extends PDO {
+<?php class MySQL extends PDO {
 	
 	// Unique fetch mode (returns associative array with index value as keys)
 	const UNIQUE = parent::FETCH_ASSOC | parent::FETCH_UNIQUE;
