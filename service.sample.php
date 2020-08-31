@@ -15,7 +15,7 @@ chdir(__DIR__);
 // Setup shielding
 $shielding = new Shielding(
 	
-	// Sources
+	// Adapters
 	[
 		new MailEnable('<path to SMTP logs>'),
 		new WinEvent(),

@@ -4,14 +4,14 @@
 	private $list;
 	
 	// Handles
-	private $sources, $db, $firewall;
+	private $adapters, $db, $firewall;
 	
 	// Badness threshold 
 	public $threshold = 0;
 	
 	// Construct with handles
-	public function __construct($sources, $db, $firewall) {
-		$this->sources = $sources;
+	public function __construct($adapters, $db, $firewall) {
+		$this->adapters = $adapters;
 		$this->db = $db;
 		$this->firewall = $firewall;
 	}
@@ -54,10 +54,10 @@
 		print implode("\t", $cols)."\r\n";
 	}
 	
-	// Retrieve request lists from sources
-	private function readSources() {
-		foreach($this->sources as $source) {
-			foreach($source->getList() as $request) {
+	// Retrieve request lists from adapters
+	private function callAdapters() {
+		foreach($this->adapters as $adapter) {
+			foreach($adapter->getList() as $request) {
 				
 				// Insert request
 				$query = 'INSERT IGNORE INTO requests (ip, datetime) VALUES (:ip, :datetime)';
@@ -65,7 +65,7 @@
 				
 				// Log request
 				$this->log(
-					get_class($source),
+					get_class($adapter),
 					$request['datetime'],
 					$request['ip'],
 				);
@@ -96,7 +96,7 @@
 	// Runner cycle with exception handling
 	public function cycle() {
 		try {
-			$this->readSources();
+			$this->callAdapters();
 			$this->updateFirewall();
 		} catch(Exception $e) {
 			$this->log('Exception', var_export($e->getMessage(), true)); 
