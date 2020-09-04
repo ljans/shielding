@@ -22,6 +22,15 @@
 		'u',
 	];
 	
+	// Forbidden subsets
+	private $forbidden = [
+		['command' => 'EHLO', 'code' => '550'], // EHLO command is blocked
+		['command' => 'AUTH', 'code' => '535'], // Invalid credentials
+		['command' => 'RCPT', 'code' => '550'], // Send via submission port without authentication or mailbox is unavailable
+		['command' => 'RCPT', 'code' => '503'], // Sending to non-local address without authentication
+		['command' => 'RCPT', 'code' => '554'], // Sender IP found in blacklist
+	];
+	
 	// Date and file position
 	private $today, $pos;
 	
@@ -74,16 +83,13 @@
 			$data = array_combine($this->keys, explode("\t", $line));
 			$data['code'] = substr($data['response'], 0, 3);
 			
-			// Analyze request
-			if(
-				$data['command'] = 'AUTH' and
-				$data['code'] == '535'
-			
-			// Yield failed request
-			) yield [
-				'ip' => $data['ip'],
-				'datetime' => (new DateTime($data['datetime']))->format('Y-m-d H:i:s'),
-			];
+			// Yield request if it contains a forbidden subset
+			foreach($this->forbidden as $subset) {
+				if(empty(array_diff_assoc($subset, $data))) yield [
+					'ip' => $data['ip'],
+					'datetime' => (new DateTime($data['datetime']))->format('Y-m-d H:i:s'),
+				];
+			}
 		}
 	}
 }
