@@ -29,6 +29,7 @@
 		['command' => 'RCPT', 'code' => '550'], // Send via submission port without authentication or mailbox is unavailable
 		['command' => 'RCPT', 'code' => '503'], // Sending to non-local address without authentication
 		['command' => 'RCPT', 'code' => '554'], // Sender IP found in blacklist
+		['command' => 'UNKN', 'code' => '503'], // Bad sequence of commands
 	];
 	
 	// Date and file position
