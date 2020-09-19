@@ -1,5 +1,9 @@
 <?php
 
+// Setup environment
+if(PHP_SAPI != 'cli') exit;
+chdir(__DIR__);
+
 // Load dependencies
 require 'core/mysql.php';
 require 'core/firewall.php';
@@ -7,10 +11,6 @@ require 'core/shielding.php';
 require 'core/win32service.php';
 require 'adapter/mailenable.php';
 require 'adapter/winevent.php';
-
-// Setup environment
-if(PHP_SAPI != 'cli') exit;
-chdir(__DIR__);
 
 // Setup shielding
 $shielding = new Shielding(
