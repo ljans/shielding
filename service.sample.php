@@ -40,6 +40,7 @@ $service = new Win32service([
 	'display' => '<displayname>',
 	'description' => utf8_decode('<description>'),
 	'params' => '"'.__FILE__.'" start',
+	'delayed_start' => true,
 ],[
 	'logpath' => '<directory>',
 	'runner' => [$shielding, 'cycle'],
